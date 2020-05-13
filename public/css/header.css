@@ -1,0 +1,165 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: "Quicksand";
+}
+body{
+    display: flex;
+    flex-direction: row;
+}
+#page_main{
+    width: 25%;
+    height: 100vh;
+    background-color: #b85145;
+}
+#monProfile{
+    color: white;
+    padding: 3% 8%;
+    background-color: #cd594a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.container{
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#photoDeProfile img{
+    width: 50%;
+    border-radius: 50%;
+    vertical-align: middle;
+}
+#monProfile2 a{
+    text-decoration: none;
+    font-size: 20px;
+    color: white;
+}
+#boutons{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+.bouton{
+    display: flex;
+    text-decoration: none;
+    flex: 1;   /*prend la largeur de l'élément parent*/
+    width: 100%;
+    flex-direction: row;
+    justify-content: center;
+    line-height:30px;
+    font-weight: bold;
+    color: white;
+    background-color: #b85145;
+    border: 1px solid darkgrey;
+    cursor: pointer;
+}
+.bouton i{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 15px;
+}
+.bouton:hover{
+    background-color: rgba(255, 67, 63, 0.88);
+}
+.bouton:active{
+    background-color: #b85145;
+}
+#listeNone{
+    display: flex;
+}
+#listeMatch{
+    flex: 1;
+    background: #e3e6ed;
+    text-align: center;
+    padding-top: 2%;
+}
+#listeMatch input[type=submit]{
+    background-color: white;
+    border: 1px solid darkgrey;
+    border-radius: 3px;
+    cursor: pointer;
+}
+#listeMatch form{
+    padding: 4% 0;
+}
+#listeMatch li{
+    display: flex;
+    background-color: rgba(142, 62, 52, 0.71);
+    padding: 2% 0;
+    border-bottom: 0.5px solid black;
+}
+#listeMatch li:hover{
+    background-color: rgba(160, 67, 56, 0.61);
+}
+#listeMatch li:active{
+    background-color: rgba(142, 62, 52, 0.71);
+}
+#listeMatch li div{
+    display: flex;
+    width: 50%;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: white;
+}
+#listeMatch img{
+    width: 60px;
+    height: auto;
+    border-radius: 50%;
+}
+#listeMatch a{
+    text-decoration: none;
+}
+#matchsBtn{
+    display: none;
+}
+
+@media(max-width: 420px){
+    body{
+        flex-direction: column;
+    }
+    #page_main{
+        width: 100%;
+        height: 20vh;
+    }
+    #monProfile{
+        padding: 3% 8%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    #matchsBtn{
+        display: flex;
+        justify-content: center;
+        text-align: center;
+    }
+    #matchsBtn button{
+        flex: 1;   /*prend la largeur de l'élément parent*/
+        width: 100%;
+        flex-direction: row;
+        justify-content: center;
+        height: 6vh;
+        font-weight: bold;
+        color: white;
+        background-color: #b85145;
+        border: 1px solid darkgrey;
+        cursor: pointer;
+    }
+    #listeNone{
+        display: none;
+    }
+}
+
+@media(min-width: 450px) and (max-width: 680px) {
+    body{
+        flex-direction: row;
+    }
+    #page_main{
+        width: 50%;
+        height: 100vh;
+    }
+}

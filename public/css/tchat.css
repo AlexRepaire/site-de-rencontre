@@ -1,0 +1,169 @@
+#page_tchat{
+    width: 75%;
+    height: 100vh;
+    display: flex;
+}
+#container{
+    width: 70%;
+}
+#tchat_container{
+    width: 100%;
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+}
+#send_bar{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 90%;
+    height: 10vh;
+}
+#input_txt{
+    width: 70%;
+    font-size: 14pt;
+}
+#input_sbmt{
+    width: 60px;
+    font-size: 12pt;
+    background: #4d6fb3;
+    border: none;
+    border-radius: 3px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+#input_sbmt:hover {
+    background: #99b3ff;
+}
+#input_sbmt:active {
+    background: #4d6fb3;
+}
+#all_messages{
+    height: 85vh;
+    display: flex;
+    flex-direction: column;
+    padding: 4%;
+}
+.scroll_bar{
+    overflow-y: scroll;
+}
+.scroll_bar::-webkit-scrollbar{
+    width: 10px;
+    background-color: #F5F5F5;
+    border-radius: 10px;
+}
+.scroll_bar::-webkit-scrollbar-thumb
+{
+    border-radius: 10px;
+    background-color: rgba(85, 22, 22, 0.63);
+}
+.message_sent{
+    color: black;
+    background: #a9bdcc;
+    padding: 0 1%;
+    margin-top: 2%;
+    border-radius: 10px;
+    width: 80%;
+}
+.message_sent.me{
+    background-color: #00b1ca;
+    color: white;
+    margin-left: 20%;
+}
+.pseudo_sent{
+    font-weight: bold;
+    letter-spacing: 2px;
+    font-size: 16pt;
+    margin-bottom: 2%;
+}
+
+#matchProfile{
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+    height: 100vh;
+}
+
+#description{
+    height: 96vh;
+}
+
+#description div h2{
+    padding-left: 2%;
+    padding-bottom: 5%;
+}
+#description div p{
+    padding: 4%;
+}
+
+#bloquer form input{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    flex-direction: column;
+    color: white;
+    background-color: #b85145;
+    border: none;
+    cursor: pointer;
+    line-height: 400%;
+}
+#bloquer input:hover{
+    background-color: rgba(255, 67, 63, 0.88);
+}
+#bloquer input:active{
+    background-color: #b85145;
+}
+#showProfil, #retour{
+    display: none;
+}
+
+
+@media(max-width: 420px){
+    #page_tchat{
+        width: 100%;
+        height: 80vh;
+        display: flex;
+    }
+    #container{
+        width: 100%;
+    }
+    #tchat_container{
+        height: 80vh;
+        align-items: center;
+        justify-content: center;
+    }
+    #all_messages{
+        height: 70vh;
+        display: flex;
+        flex-direction: column;
+        padding: 2%;
+    }
+    #send_bar{
+        height: 5vh;
+    }
+    #input_sbmt{
+        width: 20%;
+    }
+
+    #matchProfile{
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        height: 80vh;
+    }
+    #description{
+        height: 65vh;
+    }
+    #showProfil, #retour{
+        display: flex;
+    }
+    #retour{
+        height: 5vh;
+    }
+}
+
+@media(min-width: 450px) and (max-width: 680px) {
+
+}

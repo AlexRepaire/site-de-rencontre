@@ -1,0 +1,94 @@
+#page_profil{
+    width: 75%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+#navigation ul{
+    display: flex;
+    flex: 1;
+}
+#navigation ul li{
+    display: flex;
+    flex: 1;
+    align-items: center;
+}
+#navigation ul li button{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    cursor: pointer;
+    color: #3c9199;
+    font-weight: bold;
+    line-height: 40px;
+    border: none;
+}
+#navigation ul li button:hover{
+    background-color: #377f87;
+    color: white;
+}
+#navigation ul li button:active{
+    background-color: #3c9199;
+}
+#gestionProfil{
+    display: flex;
+    width: 40%;
+}
+#gestionProfil form {
+    padding-top: 4%;
+}
+#deleteProfil input{
+    margin-top: 10%;
+}
+#parametreDeRecherche{
+    display: none;
+    width: 40%;
+}
+#contact{
+    display: none;
+    width: 40%;
+}
+.line-right{
+    border-right: 1px solid black;
+}
+.margin{
+    margin: 5%;
+    display: flex;
+    flex-direction: column;
+}
+.margin form{
+    display: flex;
+    flex-direction: column;
+
+}
+.label-file {
+    cursor: pointer;
+    color: #00b1ca;
+    font-weight: bold;
+}
+.label-file:hover {
+    color: #25a5c4;
+}
+.input-file {
+    display: none;
+}
+
+@media(max-width: 420px){
+    #page_profil{
+        width: 100%;
+        height: 80vh;
+        align-items: center;
+    }
+}
+
+@media(min-width: 450px) and (max-width: 680px) {
+    #page_profil{
+        width: 50%;
+        height: 100vh;
+        align-items: center;
+
+    }
+    .scroll_bar{
+        overflow-y: scroll;
+    }
+}
