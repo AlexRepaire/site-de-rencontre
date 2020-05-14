@@ -10,16 +10,23 @@ class ControllerHeader
     private $User;
     private $Auth;
 
+    private $pseudo;
+
     public function __construct()
     {
         $this->User = new User(new Db());
         $this->Auth = new Auth(new Db());
     }
 
+    private function arrayMatchs()
+    {
+        /*****GET MATCHS ARRAY ********/
+        return $this->User->allMatch($this->Auth->getUserId())->fetch_all(MYSQLI_ASSOC);
+    }
+
     public function allMatch()
     {
-            /*****GET MATCHS ARRAY ********/
-        $match = $this->User->allMatch($this->Auth->getUserId())->fetch_all(MYSQLI_ASSOC);
+        $match = $this->arrayMatchs();
             /*******GET USERS ARRAY **********/
         $res = $this->User->getUsersById($match)->fetch_all(MYSQLI_ASSOC);
 

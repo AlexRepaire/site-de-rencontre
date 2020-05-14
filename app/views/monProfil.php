@@ -21,7 +21,7 @@
             <div>
                 <form action="" method="post">
                     <label for="file" class="label-file">Choisir une photo</label>
-                    <input id="file" class="input-file" type="file" onchange="previewFile()">
+                    <input id="file" name="file" class="input-file" type="file" onchange="previewFile()">
                     <img src="" height="200" id="img" alt="Aperçu de l’image">
 
                     <input type="submit" value="Valider la photo de profil">
@@ -66,7 +66,7 @@
         <div id="contact" class="margin">
             <h2>Contact</h2>
             <p>Veuillez écrire votre probleme, l'administrateur répondras des que possible!</p>
-            <form action="" method="post">
+            <form action="../public/index.php?page=profil" method="post">
                 <input type="text" name="textMessage" size="69" height="600px">
                 <input type="submit" value="Valider">
             </form>

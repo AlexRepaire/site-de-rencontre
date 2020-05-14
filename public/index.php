@@ -60,6 +60,7 @@ elseif ($auth->logged())
         {
             require "../app/controller/ControllerTchat.php";
             $deleteMatch = new ControllerTchat();
+            $deleteMatch->deleteMatch();
         }
         elseif ($page === "profil")
         {
@@ -69,12 +70,20 @@ elseif ($auth->logged())
             $Param->updateSearch();
             $Param->showParamProfil();
             $Param->deleteProfil();
+            $Param->contactAdmin();
+        }
+        elseif ($page === "upload")
+        {
+            require "../app/controller/ControllerParam.php";
+            $upload = new controllerParam();
+            $upload->uploadFile();
         }
         elseif ($page === "updateSearch"){
             require "../app/controller/ControllerParam.php";
             $searchParam = new controllerParam();
             $searchParam->updateSearch();
         }
+
         elseif ($page === "disconnected")
         {
             require "../app/controller/ControllerLogin.php";
@@ -101,6 +110,12 @@ elseif ($auth->logged())
             $viewProfil = new ControllerAdmin();
             $viewProfil->viewProfil();
         }
+        elseif ($page === "contactUser")
+        {
+            require "../app/controller/ControllerAdmin.php";
+            $contact = new ControllerAdmin();
+            $contact->contactUser();
+        }
         elseif ($page === "deleteUser")
         {
             require "../app/controller/ControllerAdmin.php";
@@ -114,11 +129,11 @@ elseif ($auth->logged())
             $tchat->showMatchProfil();
             $tchat->showAllMessage();
         }
-        elseif ($page === "sendMessage")
+        elseif ($page === "deleteMatch")
         {
             require "../app/controller/ControllerTchat.php";
-            $send = new ControllerTchat();
-            $send->sendMessage();
+            $deleteMatch = new ControllerTchat();
+            $deleteMatch->deleteMatch();
         }
         elseif ($page === "profilAdmin")
         {

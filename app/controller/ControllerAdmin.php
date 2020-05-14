@@ -10,6 +10,7 @@ class ControllerAdmin
     private $Auth;
     private $idUser;
     private $pseudo;
+    private $message;
 
     public function __construct()
     {
@@ -29,13 +30,12 @@ class ControllerAdmin
                 <td><?= $row['nom'] ?></td>
                 <td><?= $row['prenom'] ?></td>
                 <td><?= $row['mail'] ?></td>
-                <td><form action="" method="post">
-                    <input type="submit" value="Envoyer un message">
-                    </form></td>
-                <td><form action="../public/index.php?page=deleteUser" method="post">
+                <td>
+                    <form action="../public/index.php?page=deleteUser" method="post">
                     <input type="hidden" name="deleteUser" value="<?= $row['idUser'] ?>">
                     <input type="submit" value="Supprimer l'utilisateur">
-                    </form></td>
+                    </form>
+                </td>
                 <td><a href="../public/index.php?page=viewProfil&idUser=<?= $row['idUser'] ?>">Voir profil</a></td>
             </tr>
             <?php
@@ -60,7 +60,9 @@ class ControllerAdmin
             <p>Pays: <?= $res['pays'] ?></p>
             <p>Description: <?= $res['description'] ?></p>
             <p>Date de naissance: <?= $res['dateDeNaissance'] ?></p>
-            <form action="" method="post">
+            <form action="../public/index.php?page=contactUser" method="post">
+                <input type="hidden" name="idUser" value="<?= $res['idUser'] ?>">
+                <input type="text" name="textMessage">
                 <input type="submit" value="Envoyer un message">
             </form>
             <form action="../public/index.php?page=deleteUser" method="post">
@@ -70,6 +72,16 @@ class ControllerAdmin
         <?php
         $contentUser = ob_get_clean();
         require "../app/views/profilUser.php";
+    }
+
+    public function contactUser()
+    {
+        if (!empty($_POST['textMessage']))
+        {
+            $this->setMessage($_POST['textMessage']);
+            $this->setIdUser($_POST['idUser']);
+            $this->User->insertMessageAdmin($this->getMessage(),$this->Auth->getUserId(),$this->getIdUser());
+        }
     }
 
     public function deleteUser()
@@ -89,4 +101,13 @@ class ControllerAdmin
         return $this->idUser;
     }
 
+    public function setMessage($message)
+    {
+        $this->message = $message;
+    }
+
+    public function getMessage()
+    {
+        return $this->message;
+    }
 }

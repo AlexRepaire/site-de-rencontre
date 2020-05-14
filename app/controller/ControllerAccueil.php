@@ -7,6 +7,8 @@ class controllerAccueil
 {
     private $User;
     private $Auth;
+    private $ageMin;
+    private $ageMax;
     private $genre;
     private $limit = 1;
     private $idMatch;
@@ -16,17 +18,25 @@ class controllerAccueil
         $this->User = new User(new Db());
         $this->Auth = new Auth(new Db());
     }
+    private function calculIntervalAge($ageMin,$ageMax)
+    {
+        $this->setAgeMin(date("Y-m-d", mktime(0,0,0, date("m"), date("d"),date("Y")-$ageMin)));
+        $this->setAgeMax(date("Y-m-d", mktime(0,0,0, date("m"), date("d"), date("Y")-$ageMax)));
+    }
 
     public function searchCondition()
     {
         $res = $this->User->searchCondition($this->Auth->getUserId());
         $row = $res->fetch_assoc();
+            $this->setAgeMin($row['ageMin']);
+            $this->setAgeMax($row['ageMax']);
             $this->setGenre($row['genre']);
+            $this->calculIntervalAge($this->getAgeMin(),$this->getAgeMax());
     }
 
     public function searchProfil()
     {
-        $res = $this->User->searchProfil($this->getGenre(),$this->getLimit(),$this->getOffset() ,$this->Auth->getUserId());
+        $res = $this->User->searchProfil($this->getGenre(),$this->getAgeMin(),$this->getAgeMax(),$this->getLimit(),$this->getOffset() ,$this->Auth->getUserId());
         ob_start();
         while ($row = $res->fetch_assoc()){
             ?>
@@ -77,6 +87,26 @@ class controllerAccueil
             $this->setIdMatch($_POST['delete']);
             $this->User->disLikeProfil($this->Auth->getUserId(),$this->getIdMatch());
         }
+    }
+
+    public function setAgeMin($ageMin)
+    {
+        $this->ageMin = $ageMin;
+    }
+
+    public function getAgeMin()
+    {
+        return $this->ageMin;
+    }
+
+    public function setAgeMax($ageMax)
+    {
+        $this->ageMax = $ageMax;
+    }
+
+    public function getAgeMax()
+    {
+        return $this->ageMax;
     }
 
     public function setGenre($genre)

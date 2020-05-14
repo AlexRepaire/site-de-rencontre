@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Site de rencontre</title>
+    <title>Love Meet</title>
     <meta name="viewport" content="width=device-width, user-scalable=no">
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../public/css/header.css">
@@ -25,15 +25,11 @@
     </div>
 
     <div id="matchsBtn">
-        <button >Voir Matchs</button>
+        <button >Voir utilisateurs</button>
     </div>
     <div id="listeNone">
         <div id="listeMatch">
             <h3>Liste des utilisateurs</h3>
-            <form action="">
-                <input type="text">
-                <input type="submit">
-            </form>
             <ul>
                 <?= $liste ?>
             </ul>

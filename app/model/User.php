@@ -30,7 +30,7 @@ class User
         return $result->get_result();
     }
 
-    public function searchProfil($genre,$limit,$offset, $idUser)
+    public function searchProfil($genre,$ageMin,$ageMax,$limit,$offset, $idUser)
     {
         $likes = $this->searchLike($idUser)->fetch_all(MYSQLI_ASSOC);
         $array = array_column($likes, "user_id_like_2");
@@ -39,9 +39,9 @@ class User
         {
             $likesString = join("','",$array);
         }
-        $sql = "SELECT * FROM users LEFT JOIN usersinfos ON users.idUser = usersinfos.user_id WHERE genre = ? AND idUser NOT IN ('$likesString') LIMIT ? OFFSET ?";
+        $sql = "SELECT * FROM users LEFT JOIN usersinfos ON users.idUser = usersinfos.user_id WHERE genre = ? AND (dateDeNaissance <= ?) AND (dateDeNaissance >= ?)  AND idUser NOT IN ('$likesString') LIMIT ? OFFSET ?";
         $result = $this->Db->prepare($sql);
-        $result->bind_param("sii",$genre,$limit, $offset);
+        $result->bind_param("sssii",$genre,$ageMin,$ageMax,$limit, $offset);
         $result->execute();
         return $result->get_result();
     }
@@ -104,15 +104,20 @@ SQL
         return $result->get_result();
     }
 
-    public function getUsersById($match)
+    private function resList($match)
     {
-         /*******CREATE 2 ARRAY -> FUSION ARRAY  ->  DELETE DOUBLONS*********/
+        /*******CREATE 2 ARRAY -> FUSION ARRAY  ->  DELETE DOUBLONS*********/
         $array1 = array_column($match, 'user_id_conv');
         $array2 = array_column($match, 'user_id_conv_2');
         $idArray = array_unique(array_merge($array1,$array2));
 
-            /******JOIN ELEMENTS ARRAY IN CHAIN******/
-        $resList = join("','", $idArray);
+        /******JOIN ELEMENTS ARRAY IN CHAIN******/
+       return join("','", $idArray);
+    }
+
+    public function getUsersById($match)
+    {
+        $resList = $this->resList($match);
         $result = $this->Db->prepare("SELECT * FROM users WHERE idUser IN ('$resList')");
         $result->execute();
         return $result->get_result();
@@ -144,8 +149,10 @@ SQL
         $insert->execute();
     }
 */
-    public function blockMatch(){
-
+    public function blockMatch($idConv){
+        $delete = $this->Db->prepare("DELETE FROM conversations WHERE idConversations = ?");
+        $delete->bind_param("i",$idConv);
+        $delete->execute();
     }
 
     /*****espace param******/
@@ -192,9 +199,33 @@ SQL
 
     public function updateSearch($ageMin,$ageMax,$genre,$idUser)
     {
-        $update = $this->Db->prepare("UPDATE criterederecherche SET ageMin=?,ageMax=?,genre=?,user_id=? WHERE idRecherche=?");
+        $update = $this->Db->prepare("UPDATE criterederecherche SET ageMin=?,ageMax=?,genre=? WHERE user_id=?");
         $update->bind_param('iisi',$ageMin,$ageMax,$genre,$idUser);
         $update->execute();
+    }
+
+    public function selectAdminId($idRole)
+    {
+        $contactAdmin = $this->Db->prepare("SELECT idUser FROM users WHERE role_id = ?");
+        $contactAdmin->bind_param("i", $idRole);
+        $contactAdmin->execute();
+        return $contactAdmin->get_result();
+    }
+
+    private function contactAdmin($id,$id2)
+    {
+        $contact = $this->Db->prepare("INSERT INTO conversations (user_id_conv,user_id_conv_2) VALUES (?,?)");
+        $contact->bind_param("ii",$id,$id2);
+        $contact->execute();
+        return $this->Db->insert_id;
+    }
+
+    public function insertMessageAdmin($message,$userId,$userId2)
+    {
+        $idConv = $this->contactAdmin($userId,$userId2);
+        $insert = $this->Db->prepare("INSERT INTO messages (message,user_id,conversations_id) VALUES (?,?,?)");
+        $insert->bind_param("sii",$message,$userId,$idConv);
+        $insert->execute();
     }
 
     /*********ESPACE ADMIN***********/
@@ -220,4 +251,8 @@ SQL
         $delete->bind_param("i", $idUser);
         $delete->execute();
     }
+
+    /******************UPLOAD IMAGE******************/
+
+
 }

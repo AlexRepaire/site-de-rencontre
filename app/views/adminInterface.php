@@ -19,7 +19,6 @@
                     <th>Nom</th>
                     <th>Prénom</th>
                     <th>Mail</th>
-                    <th>Envoyer message</th>
                     <th>Supprimer utilisateur</th>
                     <th>Voir profil</th>
                 </tr>

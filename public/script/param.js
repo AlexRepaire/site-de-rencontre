@@ -26,7 +26,7 @@ $("#matchsBtn").click(function () {
 
 
 //Prévisualisation photo
-
+/*
 function previewFile() {
     var preview = $('#img');
     var file    = document.querySelector('input[type=file]').files[0];
@@ -40,3 +40,4 @@ function previewFile() {
         reader.readAsDataURL(file);
     }
 }
+ */

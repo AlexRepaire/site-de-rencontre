@@ -13,6 +13,10 @@ class controllerParam
     private $ageMin;
     private $ageMax;
     private $genre;
+    private $message;
+
+    private $suporttedFormats = ['image/png','image/jpeg','image/jpg','image/gif'];
+
 
     public function __construct()
     {
@@ -41,6 +45,38 @@ class controllerParam
             $mail = $row['mail'];
             $password = sha1($row['password']);
             require "../app/views/monProfilAdmin.php";
+        }
+    }
+
+    public function uploadFile()
+    {
+        if (!empty($_POST['file'])) {
+            $file = $_FILES['file'];/*
+            if ($file['error'] == 0)
+            {
+                if ($file['size'] > 1500000){
+                    echo "Votre fichier est trop lourd";
+                }
+                if (in_array($file['type'],$this->suporttedFormats)){
+                    echo "Votre fichier n'est pas conforme";
+                }
+            }else{
+                move_uploaded_file($file['tmp_name'],'../public/images/'.$file['name']); //Deplace un fichier télécharger
+                echo 'Le fichier est bien upload';
+            }
+        } */
+
+            if (is_array($file)) //Détermine si la variable est un tableau
+            {
+                if (in_array($file['type'], $this->$this->suporttedFormats)) //si le type de fichier est dans le tableau des formats supportés
+                {
+                    move_uploaded_file($file['tmp_name'], '../public/images/' . $file['name']); //Deplace un fichier télécharger
+                    echo 'Le fichier est bien upload';
+                }
+                echo "Le format du fichier n'est pas supporté";
+            } else {
+                echo "Le fichier n'est pas upload";
+            }
         }
     }
 
@@ -88,6 +124,19 @@ class controllerParam
         }
     }
 
+    public function contactAdmin()
+    {
+        if (!empty($_POST['textMessage']))
+        {
+            $this->setMessage($_POST['textMessage']);
+            $res = $this->User->selectAdminId(2)->fetch_assoc();
+            if ($res != NULL)
+            {
+                $this->User->insertMessageAdmin($this->getMessage(),$this->Auth->getUserId(),$res['idUser']);
+            }
+        }
+    }
+
     public function setMail($mail){
         $this->mail = $mail;
     }
@@ -126,6 +175,14 @@ class controllerParam
 
     public function getGenre(){
         return $this->genre;
+    }
+
+    public function setMessage($message){
+        $this->message = $message;
+    }
+
+    public function getMessage(){
+        return $this->message;
     }
 
 }
