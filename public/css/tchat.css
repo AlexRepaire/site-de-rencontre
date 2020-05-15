@@ -3,7 +3,7 @@
     height: 100vh;
     display: flex;
 }
-#container{
+#tchat{
     width: 70%;
 }
 #tchat_container{
@@ -78,22 +78,22 @@
     margin-bottom: 2%;
 }
 
-#matchProfile{
+#matchProfileTchat{
     display: flex;
     flex-direction: column;
     width: 30%;
     height: 100vh;
 }
 
-#description{
+#descriptionProfil{
     height: 96vh;
 }
 
-#description div h2{
+#descriptionProfil div h2{
     padding-left: 2%;
     padding-bottom: 5%;
 }
-#description div p{
+#descriptionProfil div p{
     padding: 4%;
 }
 
@@ -120,13 +120,13 @@
 }
 
 
-@media(max-width: 420px){
+@media(max-width: 450px){
     #page_tchat{
         width: 100%;
         height: 80vh;
         display: flex;
     }
-    #container{
+    #tchat{
         width: 100%;
     }
     #tchat_container{
@@ -147,13 +147,13 @@
         width: 20%;
     }
 
-    #matchProfile{
+    #matchProfileTchat{
         display: none;
         flex-direction: column;
         width: 100%;
         height: 80vh;
     }
-    #description{
+    #descriptionProfil{
         height: 65vh;
     }
     #showProfil, #retour{

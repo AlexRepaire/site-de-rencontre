@@ -1,3 +1,3 @@
 $("#matchsBtn").click(function () {
-    $("#page_profil").toggle();
+    $("#listeNone").toggle();
 });

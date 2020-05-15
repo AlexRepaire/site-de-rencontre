@@ -41,18 +41,18 @@ class controllerAccueil
         while ($row = $res->fetch_assoc()){
             ?>
             <div id="matchProfile">
-                <div id="container">
+                <div id="profil">
                     <div id="description">
                         <h2><?=$row['pseudo']?> / <?= $row['ville'] ?></h2>
                         <p><?= $row['description'] ?></p>
                     </div>
                 </div>
                 <div id="actions">
-                    <form action="../public/index.php?page=accueil" method="post">
+                    <form action="../public/index.php?page=disLike" method="post">
                         <input type="hidden" name="delete" value="<?= $row['idUser'] ?>">
                         <button type="submit"><i class="fas fa-times"></i></button>
                     </form>
-                    <form action="../public/index.php?page=accueil" method="post">
+                    <form action="../public/index.php?page=like" method="post">
                         <input type="hidden" name="insert" value="<?= $row['idUser'] ?>">
                         <button type="submit"><i class="fas fa-heart"></i></button>
                     </form>
@@ -78,6 +78,7 @@ class controllerAccueil
                 $this->User->insertMatch($this->Auth->getUserId(),$this->getIdMatch());
             }
         }
+        header("location:../public/index.php?page=accueil");
     }
 
     public function disLike()
@@ -87,6 +88,7 @@ class controllerAccueil
             $this->setIdMatch($_POST['delete']);
             $this->User->disLikeProfil($this->Auth->getUserId(),$this->getIdMatch());
         }
+        header("location:../public/index.php?page=accueil");
     }
 
     public function setAgeMin($ageMin)

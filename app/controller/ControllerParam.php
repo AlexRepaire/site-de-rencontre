@@ -87,6 +87,7 @@ class controllerParam
             $this->setPassword(sha1($_POST['password']));
             $this->User->updateParam($this->getMail(),$this->getPassword(),$this->Auth->getUserId());
         }
+        header("location:../public/index.php?page=profil");
     }
 
     public function updateParamAdmin()
@@ -95,9 +96,8 @@ class controllerParam
             $this->setMail($_POST['mail']);
             $this->setPassword(sha1($_POST['password']));
             $this->User->updateParam($this->getMail(),$this->getPassword(),$this->Auth->getUserId());
-            header('location:../public/index.php?page=profilAdmin');
         }
-
+        header('location:../public/index.php?page=profilAdmin');
     }
 
     public function deleteProfil()
@@ -122,6 +122,7 @@ class controllerParam
             $this->setAgeMax($_POST['ageMax']);
             $this->User->updateSearch($this->getAgeMin(),$this->getAgeMax(),$this->getGenre(),$this->Auth->getUserId());
         }
+        header("location:../public/index.php?page=profil");
     }
 
     public function contactAdmin()
@@ -135,6 +136,7 @@ class controllerParam
                 $this->User->insertMessageAdmin($this->getMessage(),$this->Auth->getUserId(),$res['idUser']);
             }
         }
+        header("location:../public/index.php?page=profil");
     }
 
     public function setMail($mail){

@@ -10,12 +10,12 @@
     flex-direction: column;
     width: 30%;
 }
-#container{
+#profil{
     background-color: #868686;
     color: white;
     border-radius: 15px;
     width: 100%;
-    height: 550px;
+    height: 500px;
     overflow: hidden;
     box-shadow: 0 5px 30px #868686;
     background-image: url(../images/mario.0.jpg);
@@ -23,8 +23,9 @@
     background-position: center;
     display: flex;
     align-items: flex-end;
+    margin-top: 20%;
 }
-#container img{
+#profil img{
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
 }
@@ -71,7 +72,7 @@ i{
     background-color: rgba(170, 82, 91, 0.84);
 }
 
-@media(max-width: 420px){
+@media(max-width: 680px){
     #page_accueil{
         width: 100%;
         height: 80vh;
@@ -81,7 +82,7 @@ i{
         flex-direction: column;
         width: 70%;
     }
-    #container{
+    #profil{
         height: 55vh;
     }
 }
@@ -96,7 +97,7 @@ i{
         flex-direction: column;
         width: 70%;
     }
-    #container{
+    #profil{
         height: 70vh;
     }
 }

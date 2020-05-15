@@ -45,9 +45,19 @@ elseif ($auth->logged())
             require "../app/controller/ControllerAccueil.php";
             $accueil = new controllerAccueil();
             $accueil->searchCondition();
-            $accueil->like();
-            $accueil->disLike();
             $accueil->searchProfil();
+        }
+        elseif ($page === "like")
+        {
+            require "../app/controller/ControllerAccueil.php";
+            $like = new controllerAccueil();
+            $like->like();
+        }
+        elseif ($page === "disLike")
+        {
+            require "../app/controller/ControllerAccueil.php";
+            $disLike = new controllerAccueil();
+            $disLike->disLike();
         }
         elseif ($page === "tchat")
         {
@@ -66,17 +76,38 @@ elseif ($auth->logged())
         {
             require "../app/controller/ControllerParam.php";
             $Param = new controllerParam();
-            $Param->updateParam();
-            $Param->updateSearch();
             $Param->showParamProfil();
-            $Param->deleteProfil();
-            $Param->contactAdmin();
         }
         elseif ($page === "upload")
         {
             require "../app/controller/ControllerParam.php";
             $upload = new controllerParam();
             $upload->uploadFile();
+        }
+        elseif ($page === "updateParam")
+        {
+            require "../app/controller/ControllerParam.php";
+            $update = new controllerParam();
+            $update->updateParam();
+        }
+        elseif ($page === "updateSearch")
+        {
+            require "../app/controller/ControllerParam.php";
+            $update = new controllerParam();
+            $update->updateSearch();
+
+        }
+        elseif ($page === "deleteProfil")
+        {
+            require "../app/controller/ControllerParam.php";
+            $delete = new controllerParam();
+            $delete->deleteProfil();
+        }
+        elseif ($page === "contactAdmin")
+        {
+            require "../app/controller/ControllerParam.php";
+            $contact = new controllerParam();
+            $contact->contactAdmin();
         }
         elseif ($page === "updateSearch"){
             require "../app/controller/ControllerParam.php";

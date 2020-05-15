@@ -1,16 +1,4 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <title>Mon profil</title>
-    <link rel="stylesheet" href="../public/css/monProfil.css">
-    <meta name="viewport" content="width=device-width, user-scalable=no">
-</head>
-
-
-<body>
 <div id="page_profil">
-
     <div id="gestionProfil" class="margin">
         <h2>Paramètres du compte</h2>
         <div>
@@ -36,13 +24,9 @@
             </form>
         </div>
     </div>
-
 </div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="../public/script/paramAdmin.js"></script>
-</body>
-</html>
-<!-- déplacer le script -->
+
+<!-- déplacer le script
 <script>
     function previewFile() {
         var preview = document.getElementById('img');
@@ -58,3 +42,4 @@
         }
     }
 </script>
+-->

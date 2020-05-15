@@ -1,16 +1,15 @@
 $("#matchsBtn").click(function () {
-    $("#listeNone").toggle();
     $("#page_tchat").toggle();
 });
 
 $("#showProfil").click(function () {
-    $("#container").toggle();
-    $("#matchProfile").toggle();
+    $("#tchat").toggle();
+    $("#matchProfileTchat").toggle();
 })
 
 $("#retour").click(function () {
-    $("#container").toggle();
-    $("#matchProfile").toggle();
+    $("#tchat").toggle();
+    $("#matchProfileTchat").toggle();
 })
 
 let getMessageTimeout;
