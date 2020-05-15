@@ -15,6 +15,7 @@ class controllerParam
     private $genre;
     private $message;
 
+    private $target_dir = "public/images/";
     private $suporttedFormats = ['image/png','image/jpeg','image/jpg','image/gif'];
 
 
@@ -50,7 +51,8 @@ class controllerParam
 
     public function uploadFile()
     {
-        if (!empty($_POST['file'])) {
+        if (!empty($_POST['submit'])) {
+
             $file = $_FILES['file'];/*
             if ($file['error'] == 0)
             {

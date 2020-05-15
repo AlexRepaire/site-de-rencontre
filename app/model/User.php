@@ -254,5 +254,25 @@ SQL
 
     /******************UPLOAD IMAGE******************/
 
+    public function checkPhoto($idUser)
+    {
+        $result = $this->Db->prepare("SELECT * FROM photos WHERE user_id = ?");
+        $result->bind_param("i", $idUser);
+        $result->execute();
+        return $result->get_result();
+    }
 
+    public function insertPhoto($photo,$idUser)
+    {
+        $insert = $this->Db->prepare("INSERT INTO photos (photo,user_id) VALUES (?,?)");
+        $insert->bind_param("si",$photo,$idUser);
+        $insert->execute();
+    }
+
+    public function updatePhoto($photo,$idUser)
+    {
+        $update = $this->Db->prepare("UPDATE photos SET photo=? WHERE user_id = ?");
+        $update->bind_param("si",$photo, $idUser);
+        $update->execute();
+    }
 }
