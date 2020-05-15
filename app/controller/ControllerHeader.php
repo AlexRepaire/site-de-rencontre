@@ -46,7 +46,7 @@ class ControllerHeader
             <a href="../public/index.php?page=tchat&id=<?= $row['idConversations'] ?>&idUser=<?= $matchUsers[$matchId]['idUser'] ?>">
                 <li>
                     <div>
-                        <img src="../public/images/mario.0.jpg" alt="">
+                        <img src="<?= $matchUsers[$matchId]['photo'] ?>" alt="">
                     </div>
                     <div>
                         <p><?= $matchUsers[$matchId]['pseudo'] ?></p>

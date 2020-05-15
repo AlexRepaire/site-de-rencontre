@@ -15,7 +15,7 @@
 <div id="page_main">
     <div id="monProfile">
         <div id="photoDeProfile" class="container">
-            <img src="../../public/images/mario.0.jpg" alt="Photo de profil">
+            <img src="<?= $_SESSION['photo'] ?>" alt="Photo de profil">
         </div>
         <div id="monProfile2" class="container">
             <a href="index.php?page=profil">Mon profil</a>

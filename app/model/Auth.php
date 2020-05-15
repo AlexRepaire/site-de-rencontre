@@ -15,7 +15,7 @@ class Auth
 
     public function login($mail,$password)
     {
-        $user = $this->Db->prepare("SELECT * FROM users WHERE mail = ? AND password = ?");
+        $user = $this->Db->prepare("SELECT * FROM users LEFT JOIN photos ON users.idUser = photos.user_id WHERE mail = ? AND password = ?");
         $user->bind_param('ss',$mail,$password);
         $user->execute();
         return $user->get_result();
@@ -85,5 +85,15 @@ class Auth
 
     public function getUserId(){
         return $_SESSION['id_user'];
+    }
+
+    public function setPhoto($photo)
+    {
+        $_SESSION['photo'] = $photo;
+    }
+
+    public function getPhoto()
+    {
+        return $_SESSION['photo'];
     }
 }

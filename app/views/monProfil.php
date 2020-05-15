@@ -11,8 +11,8 @@
         <div>
             <form action="index.php?page=upload" method="post" enctype="multipart/form-data">
                 <label for="file" class="label-file">Choisir une photo</label>
-                <input id="file" name="file" class="input-file" type="file" onchange="previewFile()">
-                <img src="" height="200" id="img" alt="Aperçu de l’image">
+                <input id="file" name="file" class="input-file" type="file">
+                <img src="<?= $photo ?>" height="200" id="img" alt="Aperçu de l’image">
 
                 <input type="submit" value="Valider la photo de profil">
             </form>

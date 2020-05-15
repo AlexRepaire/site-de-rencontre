@@ -32,6 +32,7 @@ class controllerParam
         $result = $this->User->showParamProfil($this->Auth->getUserId());
         $row = $result->fetch_assoc();
         if ($row != NULL){
+            $photo = $row['photo'];
             $mail = $row['mail'];
             $ageMin = $row['ageMin'];
             $ageMax = $row['ageMax'];
@@ -45,6 +46,7 @@ class controllerParam
         $result = $this->User->showParamProfilAdmin($this->Auth->getUserId());
         $row = $result->fetch_assoc();
         if ($row != NULL){
+            $photo = $row['photo'];
             $mail = $row['mail'];
             $password = sha1($row['password']);
             require "../app/views/monProfilAdmin.php";
@@ -64,8 +66,12 @@ class controllerParam
                     $this->setTargetFile($file['name']);
                     if ($res != NULL)
                     {
+                        /*********A REVOIR !!!!!!!!!**********/
                         $this->setIdPhoto($res['idPhoto']);
                         $this->User->updatePhoto($this->getIdPhoto(),$this->getTargetFile());
+                        move_uploaded_file($file['tmp_name'],$this->getTargetDir().$file['name']);
+                        unlink($res['photo']);
+                        $_SESSION['photo'] = $this->getTargetDir().$file['name'];
                         header('location:../public/index.php?page=profil');
                     }else{
                         $this->User->insertPhoto($this->getTargetFile(),$this->Auth->getUserId());

@@ -41,7 +41,7 @@ class controllerAccueil
         while ($row = $res->fetch_assoc()){
             ?>
             <div id="matchProfile">
-                <div id="profil">
+                <div id="profil" style="background-image: url('<?= $row['photo'] ?>')">
                     <div id="description">
                         <h2><?=$row['pseudo']?> / <?= $row['ville'] ?></h2>
                         <p><?= $row['description'] ?></p>

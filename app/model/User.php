@@ -39,7 +39,7 @@ class User
         {
             $likesString = join("','",$array);
         }
-        $sql = "SELECT * FROM users LEFT JOIN usersinfos ON users.idUser = usersinfos.user_id WHERE genre = ? AND (dateDeNaissance <= ?) AND (dateDeNaissance >= ?)  AND idUser NOT IN ('$likesString') LIMIT ? OFFSET ?";
+        $sql = "SELECT * FROM users LEFT JOIN usersinfos ON users.idUser = usersinfos.user_id LEFT JOIN photos ON users.idUser = photos.user_id WHERE genre = ? AND (dateDeNaissance <= ?) AND (dateDeNaissance >= ?)  AND idUser NOT IN ('$likesString') LIMIT ? OFFSET ?";
         $result = $this->Db->prepare($sql);
         $result->bind_param("sssii",$genre,$ageMin,$ageMax,$limit, $offset);
         $result->execute();
@@ -118,7 +118,7 @@ SQL
     public function getUsersById($match)
     {
         $resList = $this->resList($match);
-        $result = $this->Db->prepare("SELECT * FROM users WHERE idUser IN ('$resList')");
+        $result = $this->Db->prepare("SELECT * FROM users LEFT JOIN photos ON users.idUser = photos.user_id WHERE idUser IN ('$resList')");
         $result->execute();
         return $result->get_result();
     }
@@ -128,7 +128,7 @@ SQL
 
     public function showMatchProfil($idMatch)
     {
-        $result = $this->Db->prepare("SELECT * FROM users LEFT JOIN usersinfos ON users.idUser = usersinfos.user_id WHERE idUser = ?");
+        $result = $this->Db->prepare("SELECT * FROM users LEFT JOIN usersinfos ON users.idUser = usersinfos.user_id LEFT JOIN photos ON users.idUser = photos.user_id WHERE idUser = ?");
         $result->bind_param("i", $idMatch);
         $result->execute();
         return $result->get_result();
@@ -159,7 +159,7 @@ SQL
 
     public function showParamProfil($idUser)
     {
-        $result = $this->Db->prepare("SELECT * FROM users LEFT JOIN criterederecherche ON users.idUser = criterederecherche.user_id WHERE idUser = ?");
+        $result = $this->Db->prepare("SELECT * FROM users LEFT JOIN criterederecherche ON users.idUser = criterederecherche.user_id LEFT JOIN photos ON users.idUser = photos.user_id WHERE idUser = ?");
         $result->bind_param('i',$idUser);
         $result->execute();
         return $result->get_result();
@@ -167,7 +167,7 @@ SQL
 
     public function showParamProfilAdmin($idAdmin)
     {
-        $result = $this->Db->prepare("SELECT * FROM users WHERE idUser = ?");
+        $result = $this->Db->prepare("SELECT * FROM users LEFT JOIN photos ON users.idUser = photos.user_id WHERE idUser = ?");
         $result->bind_param("i", $idAdmin);
         $result->execute();
         return $result->get_result();
@@ -276,5 +276,11 @@ SQL
         $update->execute();
     }
 
-
+    public function photoProfil($idUser)
+    {
+        $result = $this->Db->prepare("SELECT photo FROM photos WHERE user_id = ?");
+        $result->bind_param("i",$idUser);
+        $result->execute();
+        return $result->get_result();
+    }
 }

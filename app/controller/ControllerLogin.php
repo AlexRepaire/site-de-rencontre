@@ -38,6 +38,7 @@ class controllerLogin{
             {
                 $this->Auth->setLogged($result['role_id']);
                 $this->Auth->setUserId($result['idUser']);
+                $this->Auth->setPhoto($result['photo']);
 
                 if ($this->Auth->logged() === 1)
                 {

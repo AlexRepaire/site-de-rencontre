@@ -27,7 +27,7 @@ class ControllerTchat
         $row = $res->fetch_assoc();
         ob_start();
         ?>
-                <img src="../images/Armand-Taille-en1999.jpg" style="width: 100%">
+                <img src="<?= $row['photo'] ?>" style="width: 100%">
                 <div id="descriptionProfil" class="scroll_bar">
                     <h2><?= $row['pseudo'] ?></h2>
                     <h3>Ville: <?= $row['ville'] ?></h3>
