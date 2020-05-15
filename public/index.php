@@ -82,7 +82,7 @@ elseif ($auth->logged())
         {
             require "../app/controller/ControllerParam.php";
             $upload = new controllerParam();
-            $upload->uploadFile();
+            $upload->upload();
         }
         elseif ($page === "updateParam")
         {

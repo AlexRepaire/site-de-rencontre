@@ -9,7 +9,7 @@
     <div id="gestionProfil" class="margin">
         <h2>Paramètres du compte</h2>
         <div>
-            <form action="index?page=upload" method="post">
+            <form action="index.php?page=upload" method="post" enctype="multipart/form-data">
                 <label for="file" class="label-file">Choisir une photo</label>
                 <input id="file" name="file" class="input-file" type="file" onchange="previewFile()">
                 <img src="" height="200" id="img" alt="Aperçu de l’image">

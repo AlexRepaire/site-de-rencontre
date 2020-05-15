@@ -25,9 +25,9 @@ $("#matchsBtn").click(function () {
 
 
 //Prévisualisation photo
-/*
+
 function previewFile() {
-    var preview = $('#img');
+    var preview = document.getElementById('img');
     var file    = document.querySelector('input[type=file]').files[0];
     var reader  = new FileReader();
 
@@ -39,4 +39,3 @@ function previewFile() {
         reader.readAsDataURL(file);
     }
 }
- */

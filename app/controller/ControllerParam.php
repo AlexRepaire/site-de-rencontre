@@ -15,8 +15,10 @@ class controllerParam
     private $genre;
     private $message;
 
-    private $target_dir = "public/images/";
     private $suporttedFormats = ['image/png','image/jpeg','image/jpg','image/gif'];
+    private $target_dir = "../public/images/";
+    private $target_file;
+    private $idPhoto;
 
 
     public function __construct()
@@ -49,38 +51,47 @@ class controllerParam
         }
     }
 
-    public function uploadFile()
+    private function uploadFile($file)
     {
-        if (!empty($_POST['submit'])) {
-
-            $file = $_FILES['file'];/*
-            if ($file['error'] == 0)
+        if (is_array($file))
+        {
+            if (in_array($file['type'],$this->suporttedFormats))
             {
-                if ($file['size'] > 1500000){
-                    echo "Votre fichier est trop lourd";
-                }
-                if (in_array($file['type'],$this->suporttedFormats)){
-                    echo "Votre fichier n'est pas conforme";
+                if ($file['size'] < 5000000)
+                {
+                    $res = $this->User->checkPhoto($this->Auth->getUserId())->fetch_assoc();
+                    var_dump($res['idPhoto']);
+                    $this->setTargetFile($file['name']);
+                    if ($res != NULL)
+                    {
+                        $this->setIdPhoto($res['idPhoto']);
+                        $this->User->updatePhoto($this->getIdPhoto(),$this->getTargetFile());
+                        header('location:../public/index.php?page=profil');
+                    }else{
+                        $this->User->insertPhoto($this->getTargetFile(),$this->Auth->getUserId());
+                        move_uploaded_file($file['tmp_name'],$this->getTargetDir().$file['name']);
+                        header('location:../public/index.php?page=profil');
+                    }
+                }else{
+                    echo "le fichier dois faire moins de 5 MO";
                 }
             }else{
-                move_uploaded_file($file['tmp_name'],'../public/images/'.$file['name']); //Deplace un fichier télécharger
-                echo 'Le fichier est bien upload';
+                echo "format n'est pas supporté";
             }
-        } */
-
-            if (is_array($file)) //Détermine si la variable est un tableau
-            {
-                if (in_array($file['type'], $this->$this->suporttedFormats)) //si le type de fichier est dans le tableau des formats supportés
-                {
-                    move_uploaded_file($file['tmp_name'], '../public/images/' . $file['name']); //Deplace un fichier télécharger
-                    echo 'Le fichier est bien upload';
-                }
-                echo "Le format du fichier n'est pas supporté";
-            } else {
-                echo "Le fichier n'est pas upload";
-            }
+        }else{
+            echo "fichier non upload";
         }
     }
+    public function upload()
+    {
+        if (isset($_FILES['file']))
+        {
+            $this->uploadFile($_FILES['file']);
+        }else{
+            echo "la fichier n'à pas été upload";
+        }
+    }
+
 
     public function updateParam()
     {
@@ -189,4 +200,28 @@ class controllerParam
         return $this->message;
     }
 
+    public function getTargetDir()
+    {
+        return $this->target_dir;
+    }
+
+    public function setTargetFile($file)
+    {
+        $this->target_file = $this->getTargetDir().$file;
+    }
+
+    public function getTargetFile()
+    {
+        return $this->target_file;
+    }
+
+    public function setIdPhoto($id)
+    {
+        $this->idPhoto = $id;
+    }
+
+    public function getIdPhoto()
+    {
+        return $this->idPhoto;
+    }
 }

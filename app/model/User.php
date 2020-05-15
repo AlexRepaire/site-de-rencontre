@@ -269,10 +269,12 @@ SQL
         $insert->execute();
     }
 
-    public function updatePhoto($photo,$idUser)
+    public function updatePhoto($idPhoto,$photo)
     {
-        $update = $this->Db->prepare("UPDATE photos SET photo=? WHERE user_id = ?");
-        $update->bind_param("si",$photo, $idUser);
+        $update = $this->Db->prepare("UPDATE photos SET photo=? WHERE idPhoto = ?");
+        $update->bind_param("si",$photo,$idPhoto);
         $update->execute();
     }
+
+
 }
