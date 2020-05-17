@@ -60,14 +60,15 @@ class ControllerParam
 
     private function uploadFile($file)
     {
+        //Vérifie si c'est bien un tableau
         if (is_array($file))
         {
+            //vérifie si la valeur est dans le tableau
             if (in_array($file['type'],$this->suporttedFormats))
             {
                 if ($file['size'] < 5000000)
                 {
                     $res = $this->User->checkPhoto($this->Auth->getUserId())->fetch_assoc();
-                    var_dump($res['idPhoto']);
                     $this->setTargetFile($file['name']);
                     if ($res != NULL)
                     {
@@ -88,6 +89,7 @@ class ControllerParam
                     }else{
                         $this->User->insertPhoto($this->getTargetFile(),$this->Auth->getUserId());
                         move_uploaded_file($file['tmp_name'],$this->getTargetDir().$file['name']);
+                        $_SESSION['photo'] = $this->getTargetDir().$file['name'];
                         if ($this->Auth->logged() === 1)
                         {
                             header('location:index.php?page=profil');
@@ -126,7 +128,7 @@ class ControllerParam
             $this->setPays($_POST['pays']);
             $this->setVille($_POST['ville']);
             $this->setBio($_POST['bio']);
-            //$this->setPassword(sha1($_POST['password']));
+
             $this->User->updateParam($this->getMail(),$this->Auth->getUserId());
             $this->User->updateUsersInfos($this->getAdresse(),$this->getPays(),$this->getVille(),$this->getBio(),$this->Auth->getUserId());
         }
@@ -172,10 +174,12 @@ class ControllerParam
             $res = $this->User->verificationDelete($this->Auth->getUserId(),$this->getPassword())->fetch_assoc();
             if ($res == NULL)
             {
-                echo "<script>alert('mot de passe incorrect')</script>";
+                header('location:index.php?page=profil');
             }else{
                 $this->User->deleteUserProfil($this->Auth->getUserId(),$this->getPassword());
             }
+        }else{
+            header('location:index.php?page=profil');
         }
     }
 
