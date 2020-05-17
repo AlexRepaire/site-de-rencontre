@@ -4,7 +4,7 @@
 namespace app;
 
 
-class controllerParam
+class ControllerParam
 {
     private $User;
     private $Auth;
@@ -14,6 +14,10 @@ class controllerParam
     private $ageMax;
     private $genre;
     private $message;
+    private $adresse;
+    private $pays;
+    private $ville;
+    private $bio;
 
     private $suporttedFormats = ['image/png','image/jpeg','image/jpg','image/gif'];
     private $target_dir = "../public/images/";
@@ -32,7 +36,10 @@ class controllerParam
         $result = $this->User->showParamProfil($this->Auth->getUserId());
         $row = $result->fetch_assoc();
         if ($row != NULL){
-            $photo = $row['photo'];
+            $adresse = $row['adresse'];
+            $ville = $row['ville'];
+            $pays = $row['pays'];
+            $bio = $row['description'];
             $mail = $row['mail'];
             $ageMin = $row['ageMin'];
             $ageMax = $row['ageMax'];
@@ -46,9 +53,7 @@ class controllerParam
         $result = $this->User->showParamProfilAdmin($this->Auth->getUserId());
         $row = $result->fetch_assoc();
         if ($row != NULL){
-            $photo = $row['photo'];
             $mail = $row['mail'];
-            $password = sha1($row['password']);
             require "../app/views/monProfilAdmin.php";
         }
     }
@@ -68,15 +73,29 @@ class controllerParam
                     {
                         /*********A REVOIR !!!!!!!!!**********/
                         $this->setIdPhoto($res['idPhoto']);
+                        unlink($res['photo']);
                         $this->User->updatePhoto($this->getIdPhoto(),$this->getTargetFile());
                         move_uploaded_file($file['tmp_name'],$this->getTargetDir().$file['name']);
-                        unlink($res['photo']);
                         $_SESSION['photo'] = $this->getTargetDir().$file['name'];
-                        header('location:../public/index.php?page=profil');
+                        if ($this->Auth->logged() === 1)
+                        {
+                            header('location:index.php?page=profil');
+                        }
+                        elseif ($this->Auth->logged() === 2)
+                        {
+                            header('location:index.php?page=profilAdmin');
+                        }
                     }else{
                         $this->User->insertPhoto($this->getTargetFile(),$this->Auth->getUserId());
                         move_uploaded_file($file['tmp_name'],$this->getTargetDir().$file['name']);
-                        header('location:../public/index.php?page=profil');
+                        if ($this->Auth->logged() === 1)
+                        {
+                            header('location:index.php?page=profil');
+                        }
+                        elseif ($this->Auth->logged() === 2)
+                        {
+                            header('location:index.php?page=profilAdmin');
+                        }
                     }
                 }else{
                     echo "le fichier dois faire moins de 5 MO";
@@ -101,22 +120,49 @@ class controllerParam
 
     public function updateParam()
     {
-        if (!empty($_POST['mail']) AND !empty($_POST['password'])){
+        if (!empty($_POST['mail']) AND !empty($_POST['adresse']) AND !empty($_POST['pays']) AND !empty($_POST['ville']) AND !empty($_POST['bio'])){
             $this->setMail($_POST['mail']);
-            $this->setPassword(sha1($_POST['password']));
-            $this->User->updateParam($this->getMail(),$this->getPassword(),$this->Auth->getUserId());
+            $this->setAdresse($_POST['adresse']);
+            $this->setPays($_POST['pays']);
+            $this->setVille($_POST['ville']);
+            $this->setBio($_POST['bio']);
+            //$this->setPassword(sha1($_POST['password']));
+            $this->User->updateParam($this->getMail(),$this->Auth->getUserId());
+            $this->User->updateUsersInfos($this->getAdresse(),$this->getPays(),$this->getVille(),$this->getBio(),$this->Auth->getUserId());
         }
-        header("location:../public/index.php?page=profil");
+        header("location:index.php?page=profil");
     }
+
+    public function updatePassword()
+    {
+        if (!empty($_POST['password']) AND !empty($_POST['password2']))
+        {
+            if ($_POST['password'] === $_POST['password2'])
+            {
+                $this->setPassword(sha1($_POST['password']));
+                $this->User->updatePassword($this->getPassword(),$this->Auth->getUserId());
+            }else{
+                echo "les mots de passe sont différents";
+            }
+        }else{
+            echo "Au moins un des champs est vide";
+        }
+        if ($this->Auth->logged() === 1)
+        {
+            header('location:index.php?page=profil');
+        }
+        elseif ($this->Auth->logged() === 2)
+        {
+            header('location:index.php?page=profilAdmin');
+        }    }
 
     public function updateParamAdmin()
     {
         if (!empty($_POST['mail']) AND !empty($_POST['password'])){
             $this->setMail($_POST['mail']);
-            $this->setPassword(sha1($_POST['password']));
-            $this->User->updateParam($this->getMail(),$this->getPassword(),$this->Auth->getUserId());
+            $this->User->updateParam($this->getMail(),$this->Auth->getUserId());
         }
-        header('location:../public/index.php?page=profilAdmin');
+        header('location:index.php?page=profilAdmin');
     }
 
     public function deleteProfil()
@@ -141,7 +187,7 @@ class controllerParam
             $this->setAgeMax($_POST['ageMax']);
             $this->User->updateSearch($this->getAgeMin(),$this->getAgeMax(),$this->getGenre(),$this->Auth->getUserId());
         }
-        header("location:../public/index.php?page=profil");
+        header("location:index.php?page=profil");
     }
 
     public function contactAdmin()
@@ -155,7 +201,7 @@ class controllerParam
                 $this->User->insertMessageAdmin($this->getMessage(),$this->Auth->getUserId(),$res['idUser']);
             }
         }
-        header("location:../public/index.php?page=profil");
+        header("location:index.php?page=profil");
     }
 
     public function setMail($mail){
@@ -172,6 +218,38 @@ class controllerParam
 
     public function getPassword(){
         return $this->password;
+    }
+
+    public function setAdresse($adresse){
+        $this->adresse = $adresse;
+    }
+
+    public function getAdresse(){
+        return $this->adresse;
+    }
+
+    public function setPays($pays){
+        $this->pays = $pays;
+    }
+
+    public function getPays(){
+        return $this->pays;
+    }
+
+    public function setVille($ville){
+        $this->ville = $ville;
+    }
+
+    public function getVille(){
+        return $this->ville;
+    }
+
+    public function setBio($bio){
+        $this->bio = $bio;
+    }
+
+    public function getBio(){
+        return $this->bio;
     }
 
     public function setAgeMin($ageMin){

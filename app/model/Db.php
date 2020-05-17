@@ -1,6 +1,6 @@
 <?php
 namespace app;
-
+//mysqli n'est pas dans le namespace app du coup je lui dis d'utiliser mysqli qui se trouve à la racine
 use \mysqli;
 
 class Db

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Site de rencontre</title>
     <meta name="viewport" content="width=device-width, user-scalable=no">
-    <link rel="stylesheet" href="../public/css/login.css">
+    <link rel="stylesheet" href="css/login.css">
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@600&display=swap" rel="stylesheet">
 </head>
 

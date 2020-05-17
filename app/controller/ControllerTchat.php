@@ -37,12 +37,12 @@ class ControllerTchat
                 <button id="retour">Retour à la discussion</button>
                 <div id="bloquer">
                     <?php if ($this->Auth->logged() == 1): ?>
-                        <form action="../public/index.php?page=deleteMatch" method="post">
+                        <form action="index.php?page=deleteMatch" method="post">
                             <input type="hidden" name="id" value="<?= $this->getIdConversation() ?>">
                             <input type="submit" value="Supprimer des matchs">
                         </form>
                     <?php elseif ($this->Auth->logged() == 2): ?>
-                        <form action="../public/index.php?page=deleteMatch" method="post">
+                        <form action="index.php?page=deleteMatch" method="post">
                             <input type="hidden" name="id" value="<?= $this->getIdConversation() ?>">
                             <input type="submit" value="Supprimer L'utilisateur de la liste">
                         </form>
@@ -56,9 +56,9 @@ class ControllerTchat
     {
         $this->User->blockMatch($_POST['id']);
         if ($this->Auth->logged() == 1){
-            header('location:../public/index.php?page=accueil');
+            header('location:index.php?page=accueil');
         }elseif ($this->Auth->logged() == 2){
-            header('location:../public/index.php?page=admin');
+            header('location:index.php?page=admin');
         }
     }
 

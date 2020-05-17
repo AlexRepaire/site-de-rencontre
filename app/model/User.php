@@ -159,7 +159,7 @@ SQL
 
     public function showParamProfil($idUser)
     {
-        $result = $this->Db->prepare("SELECT * FROM users LEFT JOIN criterederecherche ON users.idUser = criterederecherche.user_id LEFT JOIN photos ON users.idUser = photos.user_id WHERE idUser = ?");
+        $result = $this->Db->prepare("SELECT * FROM users LEFT JOIN criterederecherche ON users.idUser = criterederecherche.user_id LEFT JOIN usersinfos ON users.idUser = usersinfos.user_id WHERE idUser = ?");
         $result->bind_param('i',$idUser);
         $result->execute();
         return $result->get_result();
@@ -173,10 +173,24 @@ SQL
         return $result->get_result();
     }
 
-    public function updateParam($mail, $password, $idUser)
+    public function updateParam($mail, $idUser)
     {
-        $update = $this->Db->prepare("UPDATE users SET mail=?, password=? WHERE idUser = ?");
-        $update->bind_param('ssi',$mail, $password, $idUser);
+        $update = $this->Db->prepare("UPDATE users SET mail=? WHERE idUser = ?");
+        $update->bind_param('si',$mail, $idUser);
+        $update->execute();
+    }
+
+    public function updateUsersInfos($adresse,$pays,$ville,$bio,$idUser)
+    {
+        $update = $this->Db->prepare("UPDATE usersinfos SET adresse=? , ville=? , pays=? , description=? WHERE user_id=?");
+        $update->bind_param("ssssi",$adresse,$ville,$pays,$bio,$idUser);
+        $update->execute();
+    }
+
+    public function updatePassword($password, $idUser)
+    {
+        $update = $this->Db->prepare("UPDATE users SET password=? WHERE idUser=?");
+        $update->bind_param("si",$password,$idUser);
         $update->execute();
     }
 
@@ -194,7 +208,7 @@ SQL
         $delete->bind_param("is", $idUser,$password);
         $delete->execute();
         session_destroy();
-        header('location:../public/index.php?page=login');
+        header('location:index.php?page=login');
     }
 
     public function updateSearch($ageMin,$ageMax,$genre,$idUser)
@@ -274,13 +288,5 @@ SQL
         $update = $this->Db->prepare("UPDATE photos SET photo=? WHERE idPhoto = ?");
         $update->bind_param("si",$photo,$idPhoto);
         $update->execute();
-    }
-
-    public function photoProfil($idUser)
-    {
-        $result = $this->Db->prepare("SELECT photo FROM photos WHERE user_id = ?");
-        $result->bind_param("i",$idUser);
-        $result->execute();
-        return $result->get_result();
     }
 }

@@ -3,7 +3,7 @@ namespace app;
 session_start();
 
 require "../app/model/Autoloader.php";
-autoloader::register();
+Autoloader::register();
 
 if (isset($_GET['page'])) {
     $page = $_GET['page'];
@@ -89,6 +89,12 @@ elseif ($auth->logged())
             require "../app/controller/ControllerParam.php";
             $update = new controllerParam();
             $update->updateParam();
+        }
+        elseif ($page === "updatePassword")
+        {
+            require "../app/controller/ControllerParam.php";
+            $update = new ControllerParam();
+            $update->updatePassword();
         }
         elseif ($page === "updateSearch")
         {
@@ -176,6 +182,18 @@ elseif ($auth->logged())
             require "../app/controller/ControllerParam.php";
             $updateParam = new controllerParam();
             $updateParam->updateParamAdmin();
+        }
+        elseif ($page === "updatePasswordAdmin")
+        {
+            require "../app/controller/ControllerParam.php";
+            $update = new ControllerParam();
+            $update->updatePassword();
+        }
+        elseif ($page === "upload")
+        {
+            require "../app/controller/ControllerParam.php";
+            $upload = new controllerParam();
+            $upload->upload();
         }
         elseif ($page === "disconnected")
         {

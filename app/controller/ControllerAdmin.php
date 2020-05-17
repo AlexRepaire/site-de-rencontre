@@ -31,12 +31,12 @@ class ControllerAdmin
                 <td><?= $row['prenom'] ?></td>
                 <td><?= $row['mail'] ?></td>
                 <td>
-                    <form action="../public/index.php?page=deleteUser" method="post">
+                    <form action="index.php?page=deleteUser" method="post">
                     <input type="hidden" name="deleteUser" value="<?= $row['idUser'] ?>">
                     <input type="submit" value="Supprimer l'utilisateur">
                     </form>
                 </td>
-                <td><a href="../public/index.php?page=viewProfil&idUser=<?= $row['idUser'] ?>">Voir profil</a></td>
+                <td><a href="index.php?page=viewProfil&idUser=<?= $row['idUser'] ?>">Voir profil</a></td>
             </tr>
             <?php
         }
@@ -60,12 +60,12 @@ class ControllerAdmin
             <p>Pays: <?= $res['pays'] ?></p>
             <p>Description: <?= $res['description'] ?></p>
             <p>Date de naissance: <?= $res['dateDeNaissance'] ?></p>
-            <form action="../public/index.php?page=contactUser" method="post">
+            <form action="index.php?page=contactUser" method="post">
                 <input type="hidden" name="idUser" value="<?= $res['idUser'] ?>">
                 <input type="text" name="textMessage">
                 <input type="submit" value="Envoyer un message">
             </form>
-            <form action="../public/index.php?page=deleteUser" method="post">
+            <form action="index.php?page=deleteUser" method="post">
                 <input type="hidden" name="deleteUser" value="<?= $res['idUser'] ?>">
                 <input type="submit" value="Supprimer l'utilisateur">
             </form>
@@ -88,7 +88,7 @@ class ControllerAdmin
     {
         $this->setIdUser($_POST['deleteUser']);
         $this->User->deleteUser($this->getIdUser());
-        header('location:../public/index.php?page=admin');
+        header('location:index.php?page=admin');
     }
 
     public function setIdUser($idUser)

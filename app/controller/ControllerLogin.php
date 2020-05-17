@@ -2,7 +2,7 @@
 namespace app;
 
 
-class controllerLogin{
+class ControllerLogin{
     private $Auth;
 
     private $mail;
@@ -30,7 +30,8 @@ class controllerLogin{
 
     public function checkLogin()
     {
-        if (!empty($_POST['mail']) AND !empty($_POST['password'])){
+        if (!empty($_POST['mail']) AND !empty($_POST['password']))
+        {
             $this->setMail($_POST['mail']);
             $this->setPassword(sha1($_POST['password']));
             $result = $this->Auth->login($this->getMail(),$this->getPassword())->fetch_assoc();
@@ -43,14 +44,15 @@ class controllerLogin{
                 if ($this->Auth->logged() === 1)
                 {
                     $_SESSION['offset'] = 0;
-                    header('location:../public/index.php?page=accueil');
+                    header('location:index.php?page=accueil');
                 }
                 elseif($this->Auth->logged() === 2)
                 {
-                    header('location:../public/index.php?page=admin');
+                    header('location:index.php?page=admin');
                 }
+            }else{
+                echo 'identifiant incorrect';
             }
-            echo 'identifiant incorrect';
         }
     }
 
@@ -80,7 +82,7 @@ class controllerLogin{
                     $this->Auth->setUserId($res);
                     if (!empty($this->Auth->getUserId()))
                     {
-                        header('location:../public/index.php?page=postRegister');
+                        header('location:index.php?page=postRegister');
                     }
                 }else{
                     echo "Mail est deja utilisé";
@@ -88,6 +90,8 @@ class controllerLogin{
             }else{
                 echo "Pseudo est deja utilisé";
             }
+        }else{
+            echo "mot de passe différent!!!";
         }
     }
 
@@ -138,7 +142,7 @@ class controllerLogin{
     public function disconnected()
     {
         $this->Auth->disConnected();
-        header('location: ../public');
+        header('location: index.php');
     }
 
     public function setMail($mail){

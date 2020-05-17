@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Mon profil</title>
-    <link rel="stylesheet" href="../public/css/profilUser.css">
+    <link rel="stylesheet" href="css/profilUser.css">
     <meta name="viewport" content="width=device-width, user-scalable=no">
 </head>
 

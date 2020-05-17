@@ -3,7 +3,7 @@
 
 namespace app;
 
-class controllerAccueil
+class ControllerAccueil
 {
     private $User;
     private $Auth;
@@ -48,11 +48,11 @@ class controllerAccueil
                     </div>
                 </div>
                 <div id="actions">
-                    <form action="../public/index.php?page=disLike" method="post">
+                    <form action="index.php?page=disLike" method="post">
                         <input type="hidden" name="delete" value="<?= $row['idUser'] ?>">
                         <button type="submit"><i class="fas fa-times"></i></button>
                     </form>
-                    <form action="../public/index.php?page=like" method="post">
+                    <form action="index.php?page=like" method="post">
                         <input type="hidden" name="insert" value="<?= $row['idUser'] ?>">
                         <button type="submit"><i class="fas fa-heart"></i></button>
                     </form>
@@ -78,7 +78,7 @@ class controllerAccueil
                 $this->User->insertMatch($this->Auth->getUserId(),$this->getIdMatch());
             }
         }
-        header("location:../public/index.php?page=accueil");
+        header("location:index.php?page=accueil");
     }
 
     public function disLike()
@@ -88,7 +88,7 @@ class controllerAccueil
             $this->setIdMatch($_POST['delete']);
             $this->User->disLikeProfil($this->Auth->getUserId(),$this->getIdMatch());
         }
-        header("location:../public/index.php?page=accueil");
+        header("location:index.php?page=accueil");
     }
 
     public function setAgeMin($ageMin)

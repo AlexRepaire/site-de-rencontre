@@ -76,7 +76,12 @@ class Auth
     }
 
     public function logged(){
-        return $_SESSION['role_id'];
+        $role_id = NULL;
+        if (isset($_SESSION['role_id']))
+        {
+            $role_id = $_SESSION['role_id'];
+        }
+        return $role_id;
     }
 
     public function setUserId($id_user){
