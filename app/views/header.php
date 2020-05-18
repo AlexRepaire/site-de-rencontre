@@ -34,7 +34,29 @@
         <div id="listeMatch">
             <h3>Liste des Matchs</h3>
             <ul>
-                <?= $liste ?>
+                <?php
+                //boucle sur chaque conv
+                foreach($match as $row)
+                {
+                    //id qui va me permettre d'aller dans le tableau $matchUsers de récupéré les infos users
+                    $matchId = $row['user_id_conv'];
+                    if ($matchId === $this->Auth->getUserId()){
+                        $matchId = $row['user_id_conv_2'];
+                    }
+                    ?>
+                    <a href="index.php?page=tchat&id=<?= $row['idConversations'] ?>&idUser=<?= $matchUsers[$matchId]['idUser'] ?>">
+                        <li>
+                            <div>
+                                <img src="<?= $matchUsers[$matchId]['photo'] ?>" alt="">
+                            </div>
+                            <div>
+                                <p><?= $matchUsers[$matchId]['pseudo'] ?></p>
+                            </div>
+                        </li>
+                    </a>
+                    <?php
+                };
+                ?>
             </ul>
         </div>
     </div>

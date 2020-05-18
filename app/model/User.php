@@ -61,6 +61,14 @@ class User
         $insert->execute();
     }
 
+    public function checkDislike($idUser,$idMatch)
+    {
+        $res =$this->Db->prepare("SELECT * FROM dislike WHERE user_id_disLike = ? AND user_id_disLike_2 = ?");
+        $res->bind_param("ii", $idUser, $idMatch);
+        $res->execute();
+        return $res->get_result();
+    }
+
     public function disLikeProfil($idUser,$idMatch)
     {
         $insert = $this->Db->prepare("INSERT INTO dislike (user_id_disLike,user_id_disLike_2) VALUES (?,?)");
@@ -80,25 +88,7 @@ class User
 
     public function allMatch($idUser)
     {
-        $result = $this->Db->prepare(
-        <<<'SQL'
-            SELECT
-                *
-            FROM
-                conversations
-            RIGHT JOIN users ON users.idUser = conversations.user_id_conv_2
-            WHERE
-                idUser = ? AND idConversations IS NOT NULL
-            UNION
-            SELECT
-                *
-            FROM
-                conversations
-            RIGHT JOIN users ON users.idUser = conversations.user_id_conv
-            WHERE
-                idUser = ? AND idConversations IS NOT NULL
-SQL
-        );
+        $result = $this->Db->prepare("SELECT * FROM conversations WHERE user_id_conv_2 = ? UNION SELECT * FROM conversations WHERE user_id_conv = ?");
         $result->bind_param("ii", $idUser,$idUser);
         $result->execute();
         return $result->get_result();

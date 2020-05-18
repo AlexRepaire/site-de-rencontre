@@ -131,8 +131,11 @@ class ControllerParam
 
             $this->User->updateParam($this->getMail(),$this->Auth->getUserId());
             $this->User->updateUsersInfos($this->getAdresse(),$this->getPays(),$this->getVille(),$this->getBio(),$this->Auth->getUserId());
+            header("location:index.php?page=profil");
+        }else{
+            echo "un champ est vide!!!";
+            header("location:index.php?page=profil");
         }
-        header("location:index.php?page=profil");
     }
 
     public function updatePassword()
@@ -163,8 +166,11 @@ class ControllerParam
         if (!empty($_POST['mail']) AND !empty($_POST['password'])){
             $this->setMail($_POST['mail']);
             $this->User->updateParam($this->getMail(),$this->Auth->getUserId());
+            header('location:index.php?page=profilAdmin');
+        }else{
+            echo "input vide";
+            header('location:index.php?page=profilAdmin');
         }
-        header('location:index.php?page=profilAdmin');
     }
 
     public function deleteProfil()
@@ -190,6 +196,8 @@ class ControllerParam
             $this->setAgeMin($_POST['ageMin']);
             $this->setAgeMax($_POST['ageMax']);
             $this->User->updateSearch($this->getAgeMin(),$this->getAgeMax(),$this->getGenre(),$this->Auth->getUserId());
+        }else{
+            echo "l'un des champs est vide!!!";
         }
         header("location:index.php?page=profil");
     }

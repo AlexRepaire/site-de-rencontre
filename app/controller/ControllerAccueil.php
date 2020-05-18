@@ -24,7 +24,7 @@ class ControllerAccueil
         $this->setAgeMax(date("Y-m-d", mktime(0,0,0, date("m"), date("d"), date("Y")-$ageMax)));
     }
 
-    public function searchCondition()
+    private function searchCondition()
     {
         $res = $this->User->searchCondition($this->Auth->getUserId());
         $row = $res->fetch_assoc();
@@ -36,33 +36,9 @@ class ControllerAccueil
 
     public function searchProfil()
     {
+        $this->searchCondition();
         $res = $this->User->searchProfil($this->getGenre(),$this->getAgeMin(),$this->getAgeMax(),$this->getLimit(),$this->getOffset() ,$this->Auth->getUserId());
-        ob_start();
-        while ($row = $res->fetch_assoc()){
-            ?>
-            <div id="matchProfile">
-                <div id="profil" style="background-image: url('<?= $row['photo'] ?>')">
-                    <div id="description">
-                        <h2><?=$row['pseudo']?> / <?= $row['ville'] ?></h2>
-                        <p><?= $row['description'] ?></p>
-                    </div>
-                </div>
-                <div id="actions">
-                    <form action="index.php?page=disLike" method="post">
-                        <input type="hidden" name="delete" value="<?= $row['idUser'] ?>">
-                        <button type="submit"><i class="fas fa-times"></i></button>
-                    </form>
-                    <form action="index.php?page=like" method="post">
-                        <input type="hidden" name="insert" value="<?= $row['idUser'] ?>">
-                        <button type="submit"><i class="fas fa-heart"></i></button>
-                    </form>
-                </div>
-            </div>
-            <?php
-        }
-        $contentProfil = ob_get_clean();
         require "../app/views/accueil.php";
-
     }
 
     public function like()
@@ -86,7 +62,11 @@ class ControllerAccueil
         if (!empty($_POST['delete'])){
             $this->setOffset(1);
             $this->setIdMatch($_POST['delete']);
-            $this->User->disLikeProfil($this->Auth->getUserId(),$this->getIdMatch());
+            $result = $this->User->checkDislike($this->Auth->getUserId(),$this->getIdMatch())->fetch_assoc();
+            if ($result == NULL)
+            {
+                $this->User->disLikeProfil($this->Auth->getUserId(),$this->getIdMatch());
+            }
         }
         header("location:index.php?page=accueil");
     }

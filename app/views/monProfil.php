@@ -58,8 +58,8 @@
         <form action="index.php?page=updateSearch" method="post">
             <label for="genre">Recherche :</label>
             <select id="genre" name="genre">
-                <option value="homme" <?php if ($genre == "homme"){?> selected='selected' <?php } ?> >Homme</option>
-                <option value="femme" <?php if ($genre == "femme"){?> selected='selected' <?php } ?> >Femme</option>
+                <option value="homme" <?php if ($genre === "homme"){?> selected='selected' <?php } ?> >Homme</option>
+                <option value="femme" <?php if ($genre === "femme"){?> selected='selected' <?php } ?> >Femme</option>
             </select>
 
             <label for="ageMin">Age min: </label>

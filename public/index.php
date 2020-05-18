@@ -44,7 +44,6 @@ elseif ($auth->logged())
         {
             require "../app/controller/ControllerAccueil.php";
             $accueil = new controllerAccueil();
-            $accueil->searchCondition();
             $accueil->searchProfil();
         }
         elseif ($page === "like")
