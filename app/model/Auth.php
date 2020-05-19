@@ -15,7 +15,7 @@ class Auth
 
     public function login($mail,$password)
     {
-        $user = $this->Db->prepare("SELECT * FROM users LEFT JOIN photos ON users.idUser = photos.user_id WHERE mail = ? AND password = ?");
+        $user = $this->Db->prepare("SELECT role_id,idUser,photo FROM users LEFT JOIN photos ON users.idUser = photos.user_id WHERE mail = ? AND password = ?");
         $user->bind_param('ss',$mail,$password);
         $user->execute();
         return $user->get_result();

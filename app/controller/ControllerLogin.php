@@ -30,8 +30,10 @@ class ControllerLogin{
 
     public function checkLogin()
     {
+
         if (!empty($_POST['mail']) AND !empty($_POST['password']))
         {
+
             $this->setMail($_POST['mail']);
             $this->setPassword(sha1($_POST['password']));
             $result = $this->Auth->login($this->getMail(),$this->getPassword())->fetch_assoc();
@@ -53,6 +55,8 @@ class ControllerLogin{
             }else{
                 echo 'identifiant incorrect';
             }
+        }else{
+            echo "l'un des champs est vide!!!";
         }
     }
 
