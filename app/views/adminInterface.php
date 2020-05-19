@@ -14,7 +14,26 @@
                 </tr>
             </thead>
             <tbody>
-                <?= $allUsers ?>
+                <?php
+                while ($row = $result->fetch_assoc())
+                {
+                    ?>
+                    <tr>
+                        <td><?= $row['pseudo'] ?></td>
+                        <td><?= $row['nom'] ?></td>
+                        <td><?= $row['prenom'] ?></td>
+                        <td><?= $row['mail'] ?></td>
+                        <td>
+                            <form action="index.php?page=deleteUser" method="post">
+                                <input type="hidden" name="deleteUser" value="<?= $row['idUser'] ?>">
+                                <input type="submit" value="Supprimer l'utilisateur">
+                            </form>
+                        </td>
+                        <td><a href="index.php?page=viewProfil&idUser=<?= $row['idUser'] ?>">Voir profil</a></td>
+                    </tr>
+                    <?php
+                }
+                ?>
             </tbody>
         </table>
 

@@ -23,7 +23,7 @@ class ControllerTchat
     {
         $this->setIdMatch($_GET['idUser']);
         $this->setIdConversation($_GET['id']);
-        $_SESSION["row"] = $this->User->showMatchProfil($this->getIdMatch())->fetch_assoc();
+        return $this->User->showMatchProfil($this->getIdMatch())->fetch_assoc();
     }
 
     public function deleteMatch()
@@ -38,6 +38,7 @@ class ControllerTchat
 
     public function showAllMessage()
     {
+        $result = $this->showMatchProfil();
         $this->setIdConversation($_GET['id']);
         $res = $this->User->showAllMessage($this->getIdConversation());
         require "../app/views/tchat.php";

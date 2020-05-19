@@ -19,9 +19,10 @@ function getMessages() {
     $.ajax({
         type: "GET",
         url: '../app/ajax/chargeContent.php?id='+convId +'&idUser='+idUser,
+        //si success
     }).done(function (data) {
         container.html(data);
-        //container.animate({scrollTop:container.height()}, 1);
+        //permet de défiler la scrollbar vers le bas
         container.scrollTop(container.height());
 
         if (getMessageTimeout){
@@ -42,7 +43,6 @@ function postMessage() {
         data: "id="+convId +"&idUser="+idUser +"&message="+message.val()
     }).done(function () {
         getMessages();
-        message.val("").focus();
     });
     return false;
 }

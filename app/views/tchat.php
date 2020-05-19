@@ -17,9 +17,10 @@
                 }
                 ?>
             </div>
+
             <div id="send_bar">
-                <script>window.convId = <?= $this->getIdConversation() ?>;
-                    window.idUser = <?= $this->Auth->getUserId() ?>;</script>
+                <script>let convId = <?= $this->getIdConversation() ?>;
+                    let idUser = <?= $this->Auth->getUserId() ?>;</script>
                 <form action="#" onsubmit="return postMessage();">
                     <input id="input_txt" type="text" name="message">
                     <input id="input_sbmt" type="submit" value="Envoyer">
@@ -30,12 +31,12 @@
     </div>
 
     <div id="matchProfileTchat">
-        <img src="<?= $_SESSION["row"]['photo'] ?>" style="width: 100%">
+        <img src="<?=$result['photo'] ?>" style="width: 100%">
         <div id="descriptionProfil" class="scroll_bar">
-            <h2><?= $_SESSION['row']['pseudo'] ?></h2>
-            <h3>Ville: <?= $_SESSION["row"]['ville'] ?></h3>
+            <h2><?= $result['pseudo'] ?></h2>
+            <h3>Ville: <?= $result['ville'] ?></h3>
             <h4>Description:</h4>
-            <p><?= $_SESSION["row"]['description'] ?></p>
+            <p><?= $result['description'] ?></p>
         </div>
         <button id="retour">Retour à la discussion</button>
         <div id="bloquer">

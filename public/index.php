@@ -62,7 +62,6 @@ elseif ($auth->logged())
         {
             require "../app/controller/ControllerTchat.php";
             $tchat = new ControllerTchat();
-            $tchat->showMatchProfil();
             $tchat->showAllMessage();
         }
         elseif ($page === "deleteMatch")
