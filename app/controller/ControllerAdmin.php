@@ -21,14 +21,14 @@ class ControllerAdmin
     public function AllUsers()
     {
         $result = $this->User->AllUser();
-        require "../app/views/adminInterface.php";
+        require "app/views/adminInterface.php";
     }
 
     public function viewProfil()
     {
         $this->setIdUser($_GET['idUser']);
         $res = $this->User->User($this->getIdUser())->fetch_assoc();
-        require "../app/views/profilUser.php";
+        require "app/views/profilUser.php";
     }
 
     public function contactUser()

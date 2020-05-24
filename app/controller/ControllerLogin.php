@@ -55,8 +55,6 @@ class ControllerLogin{
             }else{
                 echo 'identifiant incorrect';
             }
-        }else{
-            echo "l'un des champs est vide!!!";
         }
     }
 

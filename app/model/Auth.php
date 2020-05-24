@@ -57,7 +57,7 @@ class Auth
 
     public function insertSearch($ageMin,$ageMax,$genre)
     {
-        $insert = $this->Db->prepare("INSERT INTO criterederecherche (ageMin,ageMax,genre,user_id) VALUES (?,?,?,?)");
+        $insert = $this->Db->prepare("INSERT INTO criterederecherche (ageMin,ageMax,genreRecherche,user_id) VALUES (?,?,?,?)");
         $insert->bind_param('iisi',$ageMin,$ageMax,$genre,$_SESSION['id_user']);
         if ($insert->execute()){
             return true;

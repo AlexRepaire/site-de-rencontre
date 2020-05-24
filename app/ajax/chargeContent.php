@@ -1,8 +1,8 @@
 <?php
-
 $db = new mysqli('localhost', 'root', '', 'site_de_rencontre');
 
-$result = $db->prepare("SELECT * FROM messages LEFT JOIN conversations ON messages.conversations_id = conversations.idConversations LEFT JOIN users ON messages.user_id = users.idUser  WHERE conversations_id = ?");
+
+$result = $db->prepare("SELECT * FROM messages LEFT JOIN conversations ON messages.conversations_id = conversations.idConversations LEFT JOIN users ON messages.user_id = users.idUser  WHERE conversations_id = ? ORDER BY idMessage");
 $result->bind_param("i", $_GET['id']);
 $result->execute();
 $res = $result->get_result();

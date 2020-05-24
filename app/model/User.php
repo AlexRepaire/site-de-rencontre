@@ -203,7 +203,7 @@ class User
 
     public function updateSearch($ageMin,$ageMax,$genre,$idUser)
     {
-        $update = $this->Db->prepare("UPDATE criterederecherche SET ageMin=?,ageMax=?,genre=? WHERE user_id=?");
+        $update = $this->Db->prepare("UPDATE criterederecherche SET ageMin=?,ageMax=?,genreRecherche=? WHERE user_id=?");
         $update->bind_param('iisi',$ageMin,$ageMax,$genre,$idUser);
         $update->execute();
     }

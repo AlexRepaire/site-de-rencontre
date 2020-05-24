@@ -21,7 +21,7 @@
             <div id="send_bar">
                 <script>let convId = <?= $this->getIdConversation() ?>;
                     let idUser = <?= $this->Auth->getUserId() ?>;</script>
-                <form action="#" onsubmit="return postMessage();">
+                <form onsubmit="return postMessage();">
                     <input id="input_txt" type="text" name="message">
                     <input id="input_sbmt" type="submit" value="Envoyer">
                 </form>

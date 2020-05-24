@@ -30,7 +30,7 @@ class ControllerAccueil
         $row = $res->fetch_assoc();
             $this->setAgeMin($row['ageMin']);
             $this->setAgeMax($row['ageMax']);
-            $this->setGenre($row['genre']);
+            $this->setGenre($row['genreRecherche']);
             $this->calculIntervalAge($this->getAgeMin(),$this->getAgeMax());
     }
 
@@ -38,7 +38,7 @@ class ControllerAccueil
     {
         $this->searchCondition();
         $res = $this->User->searchProfil($this->getGenre(),$this->getAgeMin(),$this->getAgeMax(),$this->getLimit(),$this->getOffset() ,$this->Auth->getUserId());
-        require "../app/views/accueil.php";
+        require "app/views/accueil.php";
     }
 
     public function like()

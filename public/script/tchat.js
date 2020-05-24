@@ -14,11 +14,12 @@ $("#retour").click(function () {
 
 let getMessageTimeout;
 const container = $("#all_messages");
+let input = $("#input_txt");
 
 function getMessages() {
     $.ajax({
         type: "GET",
-        url: '../app/ajax/chargeContent.php?id='+convId +'&idUser='+idUser,
+        url: 'app/ajax/chargeContent.php?id='+convId +'&idUser='+idUser,
         //si success
     }).done(function (data) {
         container.html(data);
@@ -35,12 +36,13 @@ function getMessages() {
 }
 getMessages();
 
-const message = $("#input_txt");
 function postMessage() {
+    const message = input.val();
+    input.val("").focus();
     $.ajax({
         type: "POST",
-        url: "../app/ajax/insertContent.php",
-        data: "id="+convId +"&idUser="+idUser +"&message="+message.val()
+        url: "app/ajax/insertContent.php",
+        data: "id="+convId +"&idUser="+idUser +"&message="+message
     }).done(function () {
         getMessages();
     });

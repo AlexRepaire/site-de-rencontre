@@ -34,9 +34,9 @@ class ControllerHeader
         }
 
         if ($this->Auth->logged() === 1){
-            require "../app/views/header.php";
+            require "app/views/header.php";
         }elseif ($this->Auth->logged() === 2){
-            require "../app/views/headerAdmin.php";
+            require "app/views/headerAdmin.php";
         }
     }
 }

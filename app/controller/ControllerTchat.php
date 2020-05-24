@@ -41,7 +41,7 @@ class ControllerTchat
         $result = $this->showMatchProfil();
         $this->setIdConversation($_GET['id']);
         $res = $this->User->showAllMessage($this->getIdConversation());
-        require "../app/views/tchat.php";
+        require "app/views/tchat.php";
     }
 
     public function setIdMatch($idMatch)

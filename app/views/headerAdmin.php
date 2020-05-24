@@ -5,10 +5,11 @@
     <title>Love Meet</title>
     <meta name="viewport" content="width=device-width, user-scalable=no">
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/header.css">
-    <link rel="stylesheet" href="css/admin.css">
-    <link rel="stylesheet" href="css/monProfil.css">
-    <link rel="stylesheet" href="css/tchat.css">
+    <link rel="stylesheet" href="public/css/header.css">
+    <link rel="stylesheet" href="public/css/admin.css">
+    <link rel="stylesheet" href="public/css/monProfil.css">
+    <link rel="stylesheet" href="public/css/tchat.css">
+    <link rel="stylesheet" href="public/css/profilUser.css">
 </head>
 
 <body>
@@ -64,9 +65,9 @@
 
 <script src="https://kit.fontawesome.com/63da07ea19.js" crossorigin="anonymous"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script type="text/javascript" src="script/header.js"></script>
-<script type="text/javascript" src="script/tchat.js"></script>
-<script src="script/admin.js"></script>
-<script src="script/paramAdmin.js"></script>
+<script type="text/javascript" src="public/script/header.js"></script>
+<script type="text/javascript" src="public/script/tchat.js"></script>
+<script type="text/javascript" src="public/script/paramAdmin.js"></script>
+<script type="text/javascript" src="public/script/admin.js"></script>
 </body>
 </html>

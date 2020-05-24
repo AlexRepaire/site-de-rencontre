@@ -20,7 +20,7 @@ class ControllerParam
     private $bio;
 
     private $suporttedFormats = ['image/png','image/jpeg','image/jpg','image/gif'];
-    private $target_dir = "../public/images/";
+    private $target_dir = "public/images/";
     private $target_file;
     private $idPhoto;
 
@@ -43,8 +43,8 @@ class ControllerParam
             $mail = $row['mail'];
             $ageMin = $row['ageMin'];
             $ageMax = $row['ageMax'];
-            $genre = $row['genre'];
-            require "../app/views/monProfil.php";
+            $genre = $row['genreRecherche'];
+            require "app/views/monProfil.php";
         }
     }
 
@@ -54,7 +54,7 @@ class ControllerParam
         $row = $result->fetch_assoc();
         if ($row != NULL){
             $mail = $row['mail'];
-            require "../app/views/monProfilAdmin.php";
+            require "app/views/monProfilAdmin.php";
         }
     }
 
